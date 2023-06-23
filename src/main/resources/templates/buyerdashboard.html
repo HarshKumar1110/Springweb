@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buyer Dashboard</title>
+</head>
+<body>
+<h1>CBT Buyer Dashboard</h1>
+
+<h4>Welcome <span th:text="${session.username}"></span></h4>
+<div>
+    <h2>Your Profile</h2>
+    <table>
+        <tr>
+            <td>
+                <strong>Full Name:</strong>
+                <span th:text="${detail.fname}"></span>
+                <span th:text="${detail.lname}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Email:</strong>
+                <span th:text="${detail.email}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Phone:</strong>
+                <span th:text="${detail.phone}"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>
