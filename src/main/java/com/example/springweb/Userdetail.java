@@ -1,9 +1,6 @@
 package com.example.springweb;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "userdetails")
@@ -23,6 +20,9 @@ public class Userdetail {
 
     @Column(name = "lname", length = 20)
     private String lname;
+
+    @Column(name = "type", length = 10)
+    private String type;
 
     public String getUsername() {
         return username;
@@ -62,6 +62,14 @@ public class Userdetail {
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

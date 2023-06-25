@@ -22,7 +22,8 @@ public class MainController
     UsertypelinkRepository usertypelinkRepository;
     @Autowired
     UserdetailRepository userdetailRepository;
-
+    @Autowired
+    ProductofferRepository productofferRepository;
 
 
     @GetMapping("/")
@@ -30,17 +31,6 @@ public class MainController
         return "landingpage";
     }
 
-    @GetMapping("/save")
-
-    public String saveCredendials()
-    {
-        Credential cr = new Credential();
-        cr.setUsername("abc");
-        cr.setPassword("abc@123");
-        credentialRepository.save(cr);
-        return "New Credential Saved";
-
-    }
 
     @PostMapping("/signup")
     public String signup (@RequestParam("username") String username,
@@ -52,7 +42,7 @@ public class MainController
 
         credentialRepository.save(credential);
 
-        return "dashboardpage";
+        return "interimdashboard";
     }
 
     @PostMapping("/login")
@@ -69,20 +59,25 @@ public class MainController
                 session.setAttribute("username", username);
                 Optional<Userdetail> userdetail = userdetailRepository.findById(username);
                 List<Usertypelink> usertypelinks = usertypelinkRepository.findAll();
-                Optional<Usertypelink> usertypelink = usertypelinks.stream().
-                        filter(usertypelink1 -> usertypelink1.
+                Optional<Usertypelink> usertypelink = usertypelinks.stream().filter(usertypelink1 -> usertypelink1.
                                 getUsername().equals(username)).findAny() ;
 
                 if(userdetail.isPresent())
                 {
                     if(usertypelink.isPresent())
                     {
-                        if(usertypelink.equals("Buyer")){
+                        if(usertypelink.get().getType().equals("Buyer"))
+                        {
+                            model.addAttribute(productofferRepository);
                             return "buyerdashboard";
                         }
-                        else if(usertypelink.equals("Seller"))
+                        else if(usertypelink.get().getType().equals("Seller"))
                         {
                             return "sellerdashboard";
+                        }
+                        else
+                        {
+                            return "interimdashboard";
                         }
                     }
                     else
@@ -104,23 +99,26 @@ public class MainController
 
 
 
-    @PostMapping("userdetail")
-    public String userdetail(@RequestParam("username") String username ,
-                             @RequestParam("fname") String fname,
+    @PostMapping("details")
+    public String userdetail(@RequestParam("fname") String fname,
                              @RequestParam("email") String email,
                              @RequestParam("phone") String phone,
                              @RequestParam("lname") String lname ,
+                             @RequestParam("type") String type,
                              HttpSession session,
                              Model model)
     {
-        Userdetail detail = new Userdetail();
-        detail.setUsername((String)session.getAttribute("username"));
-        detail.setFname(fname);
-        detail.setEmail(email);
-        detail.setPhone(phone);
-        detail.setLname(lname);
+        Userdetail details = new Userdetail();
 
-        userdetailRepository.save(detail);
+        details.setUsername((String)session.getAttribute("username"));
+        details.setFname(fname);
+        details.setEmail(email);
+        details.setPhone(phone);
+        details.setLname(lname);
+        details.setType(type);
+
+        userdetailRepository.save(details);
+        model.addAttribute(details);
 
         return "welcome";
 

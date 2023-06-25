@@ -6,5 +6,37 @@
 </head>
 <body>
   <h1>You have completely signed in....Thank-you</h1>
+
+  <div>
+      <h2>Your Profile</h2>
+      <table >
+          <tr>
+              <td>
+                  <strong>Full Name:</strong>
+                  <span th:text="${userdetail.getFname()}"></span>
+                  <span th:text="${userdetail.getLname()}"></span>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>Email:</strong>
+                  <span th:text="${userdetail.getEmail()}"></span>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>Phone:</strong>
+                  <span th:text="${userdetail.getPhone()}"></span>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>User Type:</strong>
+                  <span th:text="${userdetail.getType()}"></span>
+              </td>
+          </tr>
+
+      </table>
+  </div>
 </body>
 </html>
