@@ -14,22 +14,21 @@
         <tr>
             <td>
                 <strong>Full Name:</strong>
-                <span th:text="${details.fname}"></span>
-                <span th:text="${details.lname}"></span>
+                <span th:text="${userdetail.getFname()}"></span>
+                <span th:text="${userdetail.getLname()}"></span>
             </td>
         </tr>
         <tr>
             <td>
                 <strong>Email:</strong>
-                <span th:text="${details.email}"></span>
+                <span th:text="${userdetail.getEmail()}"></span>
             </td>
         </tr>
         <tr>
             <td>
                 <strong>Phone:</strong>
-                <span th:text="${details.phone}"></span>
+                <span th:text="${userdetail.getPhone()}"></span>
             </td>
-
         </tr>
 
     </table>

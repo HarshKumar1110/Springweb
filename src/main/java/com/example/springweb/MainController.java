@@ -64,14 +64,14 @@ public class MainController
 
                 if(userdetail.isPresent())
                 {
-                    if(usertypelink.isPresent())
-                    {
-                        if(usertypelink.get().getType().equals("Buyer"))
+//                    if(userdetail.isPresent())
+//                    {
+                        if(userdetail.get().getType().equals("Buyer"))
                         {
                             model.addAttribute(productofferRepository);
                             return "buyerdashboard";
                         }
-                        else if(usertypelink.get().getType().equals("Seller"))
+                        else if(userdetail.get().getType().equals("Seller"))
                         {
                             return "sellerdashboard";
                         }
@@ -80,21 +80,21 @@ public class MainController
                             return "interimdashboard";
                         }
                     }
-                    else
-                    {
-                        return "interimdashboard";
-                    }
+//                    else
+//                    {
+//                        return "interimdashboard";
+//                    }
                 }
                 else
                 {
                     return "interimdashboard";
                 }
             }
-        }
-        else
-        {
-            return "landingpage";
-        }
+//        }
+//        else
+//        {
+//            return "landingpage";
+//        }
     return "landingpage";}
 
 
@@ -120,8 +120,14 @@ public class MainController
         userdetailRepository.save(details);
         model.addAttribute(details);
 
-        return "welcome";
+        switch (type){
+            case "Buyer": return "buyerdashboard";
+            case "Seller": return "sellerdashboard";
+            default: return "landingpage";
+    }
+
 
     }
+
 }
 
